@@ -1,183 +1,158 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Brandon Chang - CS192 Labs 1–7</title>
+<title>College1.com - cs192 - Lab 7</title>
 </head>
 <body>
 
+<h1>College1.com - cs192 - Lab 7</h1>
+<hr>
+
+<!-- ----------------------   Lab 7   ---------------------- -->
+
 <?php
-// --------------------------------------------------
-// Lab 7
-// --------------------------------------------------
 print "<h2>Lab 7 Assignment</h2>";
 
-// CLASS DEFINITION
+// Define the Company789 class
 class Company789 {
 
-  // properties
-  public $name6 = "Vacay4Sale";
-  private $addr6 = "789 10th St";
-  private $city6 = "New York NY 10001";
+    // Properties
+    public $name6 = "Vacay4Sale";
+    private $addr6 = "789 10th St";
+    private $city6 = "New York NY 10001";
 
-  // methods copied and adjusted from Lab 6
+    // Methods
+    function getHeader935($company, $color) {
+        $output = "<div style='color:$color'>";
+        $output .= "<h3>$company</h3>";
+        $output .= "<p>Welcome to our company web page!</p>";
+        $output .= "</div>";
+        return $output;
+    }
 
-  // Header method (2 parameters)
-  function getHeader935($companyName, $color) {
-    $data = "<table style='background-color:$color;width:100%'><tr><td>";
-    $data .= "<h1 style='text-align:center'>$companyName</h1>";
-    $data .= "</td></tr></table>";
-    return $data;
-  }
+    function getFooter732() {
+        $output = "<p>Address: " . $this->addr6 . "<br>";
+        $output .= $this->city6 . "</p>";
+        $output .= "<p>Thank you for visiting " . $this->name6 . "!</p>";
+        return $output;
+    }
+}
 
-  // Footer method (1 parameter)
-  function getFooter732($color) {
-    $data = "<table style='background-color:$color;width:100%'><tr><td>";
-    $data .= "<p style='text-align:center;font-size:14px'>";
-    $data .= $this->name6 . "<br>" . $this->addr6 . "<br>" . $this->city6;
-    $data .= "</p></td></tr></table>";
-    return $data;
-  }
-} // end class Company789
-
-// create object and call methods
+// Create an object from the class
 $object593 = new Company789();
 
-print $object593->getHeader935($object593->name6, "lightgreen");
+// Call methods using the object
+print $object593->getHeader935($object593->name6, "blue");
 print "<br><br>";
-print $object593->getFooter732("lightyellow");
+print $object593->getFooter732();
 
 print "<hr>";
+?>
 
-// --------------------------------------------------
-// Lab 6
-// --------------------------------------------------
+<!-- ----------------------   Lab 6   ---------------------- -->
+
+<?php
 print "<h2>Lab 6 Assignment</h2>";
 
-// functions that return HTML instead of printing
-function getHeader935($companyName, $color) {
-  $data = "<table style='background-color:$color;width:100%'><tr><td>";
-  $data .= "<h1 style='text-align:center'>$companyName</h1>";
-  $data .= "</td></tr></table>";
-  return $data;
+$companyName = "Brandon Chang Spaceworks";
+$companyAddress = "1234 Galaxy Ave";
+$companyCity = "Miami, FL 33101";
+
+function getHeader935($name, $color) {
+    return "<div style='color:$color'><h3>$name</h3><p>Welcome to our company web page!</p></div>";
 }
 
-function getFooter732($color) {
-  global $companyName, $companyAddress, $companyCity, $companyState, $companyZip;
-  $data = "<table style='background-color:$color;width:100%'><tr><td>";
-  $data .= "<p style='text-align:center;font-size:14px'>";
-  $data .= "$companyName<br>$companyAddress<br>$companyCity, $companyState $companyZip";
-  $data .= "</p></td></tr></table>";
-  return $data;
+function getFooter732($addr, $city) {
+    return "<p>Address: $addr<br>$city</p>";
 }
 
-$companyName = "Brandon Chang Enterprises";
-$companyAddress = "42 Galaxy Blvd";
-$companyCity = "Miami";
-$companyState = "FL";
-$companyZip = "33101";
-
-print getHeader935($companyName, "lightblue");
+print getHeader935($companyName, "red");
 print "<br><br>";
-print getFooter732("lightgray");
-
-
-// --------------------------------------------------
-// Lab 5
-// --------------------------------------------------
+print getFooter732($companyAddress, $companyCity);
 print "<hr>";
+?>
+
+<!-- ----------------------   Lab 5   ---------------------- -->
+
+<?php
 print "<h2>Lab 5 Assignment</h2>";
 
-function create_array_908() {
-  $products = [
-    ["Space Helmet", 89.99, 5],
-    ["Rocket Fuel Pack", 129.50, 2],
-    ["Lunar Gloves", 45.75, 7],
-    ["Solar Panel Kit", 299.00, 3],
-    ["Alien Detector", 15.25, 9]
-  ];
-  return $products;
+function display_name_5() {
+    print "Brandon Chang<br>";
 }
-
-function display_product_872($array) {
-  print "<table border='1' style='width:60%;text-align:center;border-collapse:collapse'>";
-  print "<tr><th>Product</th><th>Price</th><th>Quantity</th></tr>";
-
-  foreach ($array as $item) {
-    $product = $item[0];
-    $price = number_format($item[1], 2);
-    $qty = $item[2];
-    print "<tr><td>$product</td><td>$$price</td><td>$qty</td></tr>";
-  }
-
-  print "</table>";
+function display_address_5() {
+    print "1234 Galaxy Ave<br>Miami, FL 33101<br>";
 }
+display_name_5();
+display_address_5();
 
-$myarray664 = create_array_908();
-display_product_872($myarray664);
-
-
-// --------------------------------------------------
-// Lab 4
-// --------------------------------------------------
 print "<hr>";
+?>
+
+<!-- ----------------------   Lab 4   ---------------------- -->
+
+<?php
 print "<h2>Lab 4 Assignment</h2>";
 
-function show_loop_321($num) {
-  print "<ul>";
-  for ($i = 1; $i <= $num; $i++) {
-    print "<li>Number $i</li>";
-  }
-  print "</ul>";
+function display_name_4() {
+    print "Brandon Chang<br>";
 }
+function display_address_4() {
+    print "1234 Galaxy Ave<br>Miami, FL 33101<br>";
+}
+display_name_4();
+display_address_4();
 
-show_loop_321(5);
-
-
-// --------------------------------------------------
-// Lab 3
-// --------------------------------------------------
 print "<hr>";
+?>
+
+<!-- ----------------------   Lab 3   ---------------------- -->
+
+<?php
 print "<h2>Lab 3 Assignment</h2>";
 
-function calc_area_555($length, $width) {
-  $area = $length * $width;
-  print "<p>Length: $length, Width: $width, Area: $area</p>";
+function display_name_3() {
+    print "Brandon Chang<br>";
 }
+function display_address_3() {
+    print "1234 Galaxy Ave<br>Miami, FL 33101<br>";
+}
+display_name_3();
+display_address_3();
 
-calc_area_555(5, 8);
-
-
-// --------------------------------------------------
-// Lab 2
-// --------------------------------------------------
 print "<hr>";
+?>
+
+<!-- ----------------------   Lab 2   ---------------------- -->
+
+<?php
 print "<h2>Lab 2 Assignment</h2>";
 
-function display_course_789($course, $instructor) {
-  print "<p>Course: $course<br>Instructor: $instructor</p>";
+function display_name_2() {
+    print "Brandon Chang<br>";
 }
+function display_address_2() {
+    print "1234 Galaxy Ave<br>Miami, FL 33101<br>";
+}
+display_name_2();
+display_address_2();
 
-display_course_789("CS192", "Professor Ferguson");
-
-
-// --------------------------------------------------
-// Lab 1
-// --------------------------------------------------
 print "<hr>";
+?>
+
+<!-- ----------------------   Lab 1   ---------------------- -->
+
+<?php
 print "<h2>Lab 1 Assignment</h2>";
 
-function display_name_123() {
-  print "<h3 style='text-align:center'>Brandon Chang Enterprises</h3>";
+function display_name_1() {
+    print "Brandon Chang<br>";
 }
-
-function display_address_456() {
-  print "<p style='text-align:center'>42 Galaxy Blvd<br>Miami, FL 33101</p>";
+function display_address_1() {
+    print "1234 Galaxy Ave<br>Miami, FL 33101<br>";
 }
-
-display_name_123();
-display_address_456();
-
+display_name_1();
+display_address_1();
 ?>
 
 </body>

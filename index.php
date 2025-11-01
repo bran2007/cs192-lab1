@@ -1,102 +1,140 @@
 <!doctype html>
 <html>
-<head><meta charset="UTF-8"></head>
+<head>
+<meta charset="UTF-8">
+<title>College1.com - CS192 Labs 1–6</title>
+</head>
 <body>
 
 <?php
-/************* Global Variables ******************************/
-$coname623 = "House_R_Us";
-$coaddr812 = "123 Main St";
-$co_city511 = "Miami FL 33101";
-$debug251 = false; // initial debug state
-$myarray664 = null; // Lab 5 array
-/************* End Global Variables **************************/
+// --------------------------------------------------
+// Lab 1
+// --------------------------------------------------
+print "<h2>Lab 1 Assignment</h2>";
 
-// -------- DEBUG SETUP (Lab 3) ---------
-if (!empty($_REQUEST['debug'])) {
-    $debug251 = true;
-    print "DEBUG turned ON<br>";
+function display_name_123() {
+  print "<h3 style='text-align:center'>College1.com</h3>";
 }
 
-// ------------------ Lab 4 --------------------
+function display_address_456() {
+  print "<p style='text-align:center'>123 Learning Way<br>Valencia, CA 91355</p>";
+}
+
+display_name_123();
+display_address_456();
+
+
+// --------------------------------------------------
+// Lab 2
+// --------------------------------------------------
+print "<hr>";
+print "<h2>Lab 2 Assignment</h2>";
+
+function display_course_789($course, $instructor) {
+  print "<p>Course: $course<br>Instructor: $instructor</p>";
+}
+
+display_course_789("CS192", "Professor Ferguson");
+
+
+// --------------------------------------------------
+// Lab 3
+// --------------------------------------------------
+print "<hr>";
+print "<h2>Lab 3 Assignment</h2>";
+
+function calc_area_555($length, $width) {
+  $area = $length * $width;
+  print "<p>Length: $length, Width: $width, Area: $area</p>";
+}
+
+calc_area_555(5, 8);
+
+
+// --------------------------------------------------
+// Lab 4
+// --------------------------------------------------
+print "<hr>";
 print "<h2>Lab 4 Assignment</h2>";
 
-// Function using a parameter
-function display_name_982($parm) {
-    print "<h1>Name: $parm</h1>";
+function show_loop_321($num) {
+  print "<ul>";
+  for ($i = 1; $i <= $num; $i++) {
+    print "<li>Number $i</li>";
+  }
+  print "</ul>";
 }
 
-// Function using global variables
-function display_address_334() {
-    global $coaddr812, $co_city511;
-    print "<b><u>Address: $coaddr812, $co_city511</u></b>";
-}
+show_loop_321(5);
 
-// Call the functions
-display_name_982($coname623);
-display_address_334();
+
+// --------------------------------------------------
+// Lab 5
+// --------------------------------------------------
 print "<hr>";
-
-// ------------------ Lab 3 --------------------
-print "<h2>Lab 3 Assignment</h2>";
-if ($debug251) {
-    print "Now executing Lab 3<br>";
-    print "Lab 2, \$coname623 contains $coname623<br>";
-    print "Lab 2, \$coaddr812 contains $coaddr812<br>";
-    print "Lab 2, \$co_city511 contains $co_city511<br>";
-    print "Lab 1: My name is Brandon Chang<br>";
-}
-$yourURL = "http://your.webpage.com/index.php"; // replace with your URL
-print "<a href='$yourURL'>Debug OFF</a> | <a href='$yourURL?debug=true'>Debug ON</a>";
-print "<hr>";
-
-// ------------------ Lab 2 --------------------
-print "<h2>Lab 2 Assignment</h2>";
-print "<h1>$coname623</h1>";
-print "<p>$coaddr812</p>";
-print "<b>$co_city511</b>";
-print "<hr>";
-
-// ------------------ Lab 1 --------------------
-print "<h2>Lab 1 Assignment</h2>";
-print "<p>My name is Brandon Chang</p>";
-print "<hr>";
-
-// ------------------ Lab 5 --------------------
 print "<h2>Lab 5 Assignment</h2>";
 
-// Function to create array for Real Estate
 function create_array_908() {
-    $house_array = array();
-    $house_array[] = "ID: MLS123, Address: 123 Main St. Santa Clarita, $650000.00, 3+2 in the heart of town near mall";
-    $house_array[] = "ID: MLS456, Address: 456 Palmdale Blvd, Palmdale, $199950.00, 4+1.75 in Pretty Palmdale";
-    $house_array[] = "ID: MLS789, Address: 789 Snob Hill, Valencia, $799950.00, 4+3 View Home, live above the rest";
-    $house_array[] = "ID: MLS654, Address: 654 Horse Feathers, Newhall, $599900.00, 2+1 on a huge horse zoned lot";
-    return $house_array;
+  $products = [
+    ["Space Helmet", 89.99, 5],
+    ["Rocket Fuel Pack", 129.50, 2],
+    ["Lunar Gloves", 45.75, 7],
+    ["Solar Panel Kit", 299.00, 3],
+    ["Alien Detector", 15.25, 9]
+  ];
+  return $products;
 }
 
-// Assign array to global variable
-$myarray664 = create_array_908();
-
-// Function to display products in a table
 function display_product_872($array) {
-    print "<h3>Today's Specials</h3>";
-    print "<table border='1' cellpadding='5' cellspacing='0'>";
-    print "<tr><th>ID</th><th>Address</th><th>Price</th><th>Details</th></tr>";
-    foreach ($array as $item) {
-        $parts = explode(",", $item, 4); // split into 4 parts
-        print "<tr>";
-        foreach ($parts as $part) {
-            print "<td>" . trim($part) . "</td>";
-        }
-        print "</tr>";
-    }
-    print "</table>";
+  print "<table border='1' style='width:60%;text-align:center;border-collapse:collapse'>";
+  print "<tr><th>Product</th><th>Price</th><th>Quantity</th></tr>";
+
+  foreach ($array as $item) {
+    $product = $item[0];
+    $price = number_format($item[1], 2);
+    $qty = $item[2];
+    print "<tr><td>$product</td><td>$$price</td><td>$qty</td></tr>";
+  }
+
+  print "</table>";
 }
 
-// Call the display function
+$myarray664 = create_array_908();
 display_product_872($myarray664);
+
+
+// --------------------------------------------------
+// Lab 6
+// --------------------------------------------------
 print "<hr>";
+print "<h2>Lab 6 Assignment</h2>";
+
+// old functions must stay for grading
+function getHeader935($companyName, $color) {
+  $data = "<table style='background-color:$color;width:100%'><tr><td>";
+  $data .= "<h1 style='text-align:center'>$companyName</h1>";
+  $data .= "</td></tr></table>";
+  return $data;
+}
+
+function getFooter732($color) {
+  global $companyName, $companyAddress, $companyCity, $companyState, $companyZip;
+  $data = "<table style='background-color:$color;width:100%'><tr><td>";
+  $data .= "<p style='text-align:center;font-size:14px'>";
+  $data .= "$companyName<br>$companyAddress<br>$companyCity, $companyState $companyZip";
+  $data .= "</p></td></tr></table>";
+  return $data;
+}
+
+$companyName = "College1.com";
+$companyAddress = "123 Learning Way";
+$companyCity = "Valencia";
+$companyState = "CA";
+$companyZip = "91355";
+
+print getHeader935($companyName, "lightblue");
+print "<br><br>";
+print getFooter732("lightgray");
 ?>
 
 </body>

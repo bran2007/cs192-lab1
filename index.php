@@ -1,6 +1,9 @@
-<?php
-header("Content-type: text/html; charset=utf-8");
+<!doctype html>
+<html>
+<head><meta charset="UTF-8"></head>
+<body>
 
+<?php
 /************* Global Variables ******************************/
 $coname623 = "House_R_Us";
 $coaddr812 = "123 Main St";
@@ -81,8 +84,7 @@ function display_product_872($array) {
     print "<table border='1' cellpadding='5' cellspacing='0'>";
     print "<tr><th>ID</th><th>Address</th><th>Price</th><th>Details</th></tr>";
     foreach ($array as $item) {
-        // Split string into parts by comma
-        $parts = explode(",", $item, 4); // split into 4 parts max
+        $parts = explode(",", $item, 4); // split into 4 parts
         print "<tr>";
         foreach ($parts as $part) {
             print "<td>" . trim($part) . "</td>";
@@ -96,3 +98,6 @@ function display_product_872($array) {
 display_product_872($myarray664);
 print "<hr>";
 ?>
+
+</body>
+</html>

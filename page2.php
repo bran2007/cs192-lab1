@@ -16,8 +16,9 @@ class Company789 {
     public $name6 = "Vacay4Sale";
     private $addr6 = "789 10th St";
     private $city6 = "New York NY 10001";
-    protected $whichpage = "Home";      // default page
-    protected $sqldb9 = null;           // database connection
+
+    protected $whichpage = "Home";  // Lab 9
+    protected $sqldb9 = null;       // Lab 11 database property
 
     function getHeader935() {
         $data  = "<table style='background-color:lightblue;width:100%'><tr><td>";
@@ -33,25 +34,27 @@ class Company789 {
         return $data;
     }
 
+    // Lab 11 - Connect to Database
     function getDatabase734() {
-        $hostname = "your_host_name";      // e.g., fdb34.awardspace.net
-        $username = "your_db_username";    // e.g., 1234567_db1
-        $password = "your_db_password";    // password you set
-        $dbname   = "your_db_name";        // e.g., 1234567_db1
+        $hostname = "your_hostname";    // e.g., Render DB host
+        $username = "your_username";    // e.g., DB user
+        $password = "your_password";    // e.g., DB password
+        $dbname   = "your_dbname";      // e.g., DB name
 
         $this->sqldb9 = mysqli_connect($hostname, $username, $password, $dbname);
 
         if (!$this->sqldb9) {
-            echo "<b>Database ($dbname) connect and select failed: " . mysqli_connect_error() . "</b><br>";
+            print "<b>Database ($dbname) connect and select failed: " . mysqli_connect_error() . "</b><br>";
         } else {
-            echo "<b>Database ($dbname) connect and select complete</b><br>";
+            print "<b>Database ($dbname) connect and select complete</b><br>";
         }
     }
 
+    // Lab 11 - Close Database
     function closeDatabase634() {
         if ($this->sqldb9) {
             mysqli_close($this->sqldb9);
-            echo "<b>Database closed</b><br>";
+            print "<b>Database closed</b><br>";
         }
     }
 }  // end class Company789 [Parent]
@@ -75,9 +78,9 @@ class Child250 extends Company789 {
         return $html;
     }
 
-    // ------------------- Navigation -------------------
+    // Lab 9 - Navigation bar
     function create_navbar_array() {
-        $fullurl = $this->main_url . "/page2.php";
+        $fullurl = $this->main_url."/page2.php";
         $this->navbar_array = array(
             "Home" => "$fullurl?whichpage=Home",
             "Sales" => "$fullurl?whichpage=Sales",
@@ -87,15 +90,15 @@ class Child250 extends Company789 {
     }
 
     function getNavBar759() {
-        $data = "<table style='width:100%; text-align:center'><tr>";
-        foreach ($this->navbar_array as $key => $url) {
-            $data .= "<td><a href='$url'>$key</a></td>";
+        $html = "<table style='width:100%; text-align:center'><tr>";
+        foreach($this->navbar_array as $key => $value) {
+            $html .= "<td><a href='$value'>$key</a></td>";
         }
-        $data .= "</tr></table>";
-        return $data;
+        $html .= "</tr></table>";
+        return $html;
     }
 
-    // ------------------- Page Handling -------------------
+    // Lab 9 - CGI whichpage
     function setWhichPage() {
         if (isset($_GET['whichpage']) && $_GET['whichpage'] != "") {
             $this->whichpage = $_GET['whichpage'];
@@ -104,65 +107,55 @@ class Child250 extends Company789 {
         }
     }
 
+    // Lab 9 & 10 - Main section + display specials
     function getMain755() {
         $headline = "<h1 style='text-align:center'>The " . $this->whichpage . " Page</h1>";
-
-        $content = "";
+        $specials = "";
         if ($this->whichpage == "Home") {
-            $content .= $this->displaySpecials997();  // show table on Home page
+            $specials = $this->displaySpecials997();
         }
-
-        return $headline . $content;
+        return $headline . $specials;
     }
 
-    // ------------------- Display Weekly Specials -------------------
+    // Lab 10 - Display weekly specials from file
     function displaySpecials997() {
-        $filename = "car.txt";   // change this if using vacation.txt or realestate.txt
-        if (!file_exists($filename)) {
-            return "<p>File $filename not found</p>";
-        }
-
-        $html  = "<h3 style='text-align:center'>Weekly Specials</h3>";
-        $html .= "<table border='1' style='width:100%; text-align:left'><tr><th>ID</th><th>Name</th><th>Price</th><th>Description</th></tr>";
-
-        $file = fopen($filename, "r");
-        while (!feof($file)) {
-            $line = trim(fgets($file));
-            if ($line != "") {
-                $parts = explode(",", $line);
+        $filename = "car.txt"; // Change this file if your business is different
+        $html = "<h3 style='text-align:center'>Weekly Specials</h3>";
+        $html .= "<table border='1' style='width:80%; margin:auto'>";
+        if (file_exists($filename)) {
+            $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            foreach($lines as $line) {
+                $fields = explode(",", $line);
                 $html .= "<tr>";
-                foreach ($parts as $part) {
-                    $html .= "<td>" . htmlspecialchars(trim($part)) . "</td>";
+                foreach($fields as $field) {
+                    $html .= "<td>" . trim($field) . "</td>";
                 }
                 $html .= "</tr>";
             }
+        } else {
+            $html .= "<tr><td colspan='4'>No specials available</td></tr>";
         }
-        fclose($file);
-
         $html .= "</table>";
         return $html;
     }
 }  // end class Child250 [Child]
 
-// ----------------------------------   Build the Web Page ---------------------------
+// ----------------------------------   Build the Web Page   ---------------------------
 
 $object380 = new Child250();
 
-// 1. Connect to database (Lab 11)
-$object380->getDatabase734();  // prints connection status
+// Lab 11 - Database connect
+$object380->getDatabase734();
 
-// 2. Navigation
-$object380->create_navbar_array();
-$object380->setWhichPage();
-
-// 3. Header, NavBar, Main, Footer
 print $object380->getHeader935();
+$object380->create_navbar_array();
 print $object380->getNavBar759();
+$object380->setWhichPage();
 print $object380->getMain755();
 print $object380->main_info380();
 print $object380->getFooter732();
 
-// 4. Close database
+// Lab 11 - Close database
 $object380->closeDatabase634();
 
 ?>

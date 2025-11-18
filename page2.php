@@ -34,17 +34,21 @@ class Company789 {
         return $data;
     }
 
-    // Lab 11 - Connect to Database
+    // Lab 11 - Connect to PostgreSQL Database (Render uses Postgres)
     function getDatabase734() {
-        $hostname = "your_hostname";    // e.g., Render DB host
-        $username = "your_username";    // e.g., DB user
-        $password = "your_password";    // e.g., DB password
-        $dbname   = "your_dbname";      // e.g., DB name
+        // Your Render PostgreSQL credentials
+        $hostname = "dpg-d4egbr7gi27c73cmaiig-a.oregon-postgres.render.com";
+        $port = "5432";
+        $username = "db1";
+        $password = "K2Pp1PY6IpNtYh04NY8QprVtXYvF7l2E";
+        $dbname   = "db1";
 
-        $this->sqldb9 = mysqli_connect($hostname, $username, $password, $dbname);
+        // PostgreSQL connection string
+        $conn_string = "host=$hostname port=$port dbname=$dbname user=$username password=$password";
+        $this->sqldb9 = pg_connect($conn_string);
 
         if (!$this->sqldb9) {
-            print "<b>Database ($dbname) connect and select failed: " . mysqli_connect_error() . "</b><br>";
+            print "<b>Database ($dbname) connect and select failed</b><br>";
         } else {
             print "<b>Database ($dbname) connect and select complete</b><br>";
         }
@@ -53,11 +57,11 @@ class Company789 {
     // Lab 11 - Close Database
     function closeDatabase634() {
         if ($this->sqldb9) {
-            mysqli_close($this->sqldb9);
+            pg_close($this->sqldb9);
             print "<b>Database closed</b><br>";
         }
     }
-}  
+}  // end class Company789 [Parent]
 
 // ----------------------------------   Child Class   ---------------------------
 
@@ -90,9 +94,9 @@ class Child250 extends Company789 {
     }
 
     function getNavBar759() {
-        $html = "<table style='width:100%; text-align:center'><tr>";
+        $html = "<table style='width:100%; text-align:center; background-color:#eee;'><tr>";
         foreach($this->navbar_array as $key => $value) {
-            $html .= "<td><a href='$value'>$key</a></td>";
+            $html .= "<td style='padding:10px;'><a href='$value'>$key</a></td>";
         }
         $html .= "</tr></table>";
         return $html;
@@ -119,21 +123,23 @@ class Child250 extends Company789 {
 
     // Lab 10 - Display weekly specials from file
     function displaySpecials997() {
-        $filename = "car.txt";
+        $filename = "car.txt"; // Change this file if your business is different
         $html = "<h3 style='text-align:center'>Weekly Specials</h3>";
-        $html .= "<table border='1' style='width:80%; margin:auto'>";
+        $html .= "<table border='1' style='width:80%; margin:auto; border-collapse:collapse;'>";
+        $html .= "<tr style='background-color:#ddd;'><th>ID</th><th>Product</th><th>Price</th><th>Description</th></tr>";
+        
         if (file_exists($filename)) {
             $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
             foreach($lines as $line) {
                 $fields = explode(",", $line);
                 $html .= "<tr>";
                 foreach($fields as $field) {
-                    $html .= "<td>" . trim($field) . "</td>";
+                    $html .= "<td style='padding:8px;'>" . htmlspecialchars(trim($field)) . "</td>";
                 }
                 $html .= "</tr>";
             }
         } else {
-            $html .= "<tr><td colspan='4'>No specials available</td></tr>";
+            $html .= "<tr><td colspan='4' style='text-align:center;'>No specials available</td></tr>";
         }
         $html .= "</table>";
         return $html;
@@ -144,9 +150,10 @@ class Child250 extends Company789 {
 
 $object380 = new Child250();
 
-// Lab 11 - Database connect
+// Lab 11 - Database connect (shown at top of page)
 $object380->getDatabase734();
 
+// Display page content
 print $object380->getHeader935();
 $object380->create_navbar_array();
 print $object380->getNavBar759();
@@ -155,7 +162,7 @@ print $object380->getMain755();
 print $object380->main_info380();
 print $object380->getFooter732();
 
-// Lab 11 - Close database
+// Lab 11 - Close database (shown after footer)
 $object380->closeDatabase634();
 
 ?>

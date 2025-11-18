@@ -94,7 +94,7 @@ class Child250 extends Company789 {
     // ------------------ Display Specials Method ------------------
 
     function displaySpecials997() {
-        $filename = "car.txt"; // change for your business type: car.txt, vacation.txt, realestate.txt
+        $filename = "car.txt"; 
         if (!file_exists($filename)) {
             return "<p>File not found: $filename</p>";
         }

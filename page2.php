@@ -7,16 +7,17 @@
  * Who: Brandon Chang
  * What: CMP SCI cs192 Lab Web Page #2 Project
  * When: 10/31/25  
- * What: PHP Program for Lab Web Page #2
+ * What: PHP Program for Lab Web Page #2 with Database Connection
 */
 
-// ---------------------------------- Parent Class -------------------------------
+// ----------------------------------   Parent Class   -------------------------------
 
 class Company789 {
     public $name6 = "Vacay4Sale";
     private $addr6 = "789 10th St";
     private $city6 = "New York NY 10001";
-    protected $whichpage = "Home"; // added for lab 9
+    protected $whichpage = "Home";      // default page
+    protected $sqldb9 = null;           // database connection
 
     function getHeader935() {
         $data  = "<table style='background-color:lightblue;width:100%'><tr><td>";
@@ -31,9 +32,31 @@ class Company789 {
         $data .= "</td></tr></table>";
         return $data;
     }
+
+    function getDatabase734() {
+        $hostname = "your_host_name";      // e.g., fdb34.awardspace.net
+        $username = "your_db_username";    // e.g., 1234567_db1
+        $password = "your_db_password";    // password you set
+        $dbname   = "your_db_name";        // e.g., 1234567_db1
+
+        $this->sqldb9 = mysqli_connect($hostname, $username, $password, $dbname);
+
+        if (!$this->sqldb9) {
+            echo "<b>Database ($dbname) connect and select failed: " . mysqli_connect_error() . "</b><br>";
+        } else {
+            echo "<b>Database ($dbname) connect and select complete</b><br>";
+        }
+    }
+
+    function closeDatabase634() {
+        if ($this->sqldb9) {
+            mysqli_close($this->sqldb9);
+            echo "<b>Database closed</b><br>";
+        }
+    }
 }  // end class Company789 [Parent]
 
-// ---------------------------------- Child Class -------------------------------
+// ----------------------------------   Child Class   ---------------------------
 
 class Child250 extends Company789 {
     public $main_url = "https://cs192-lab1-1.onrender.com";
@@ -52,31 +75,29 @@ class Child250 extends Company789 {
         return $html;
     }
 
-    // ------------------ Nav Bar Methods ------------------
-
+    // ------------------- Navigation -------------------
     function create_navbar_array() {
-        $fullurl = $this->main_url."/page2.php";
+        $fullurl = $this->main_url . "/page2.php";
         $this->navbar_array = array(
-            "Home"=>"$fullurl?whichpage=Home",
-            "Sales"=>"$fullurl?whichpage=Sales",
-            "Support"=>"$fullurl?whichpage=Support",
-            "Contacts"=>"$fullurl?whichpage=Contacts"
+            "Home" => "$fullurl?whichpage=Home",
+            "Sales" => "$fullurl?whichpage=Sales",
+            "Support" => "$fullurl?whichpage=Support",
+            "Contacts" => "$fullurl?whichpage=Contacts"
         );
     }
 
     function getNavBar759() {
-        $html = "<table style='width:100%; background-color:lightgray'><tr>";
-        foreach ($this->navbar_array as $key => $value) {
-            $html .= "<td style='text-align:center'><a href='$value'>$key</a></td>";
+        $data = "<table style='width:100%; text-align:center'><tr>";
+        foreach ($this->navbar_array as $key => $url) {
+            $data .= "<td><a href='$url'>$key</a></td>";
         }
-        $html .= "</tr></table>";
-        return $html;
+        $data .= "</tr></table>";
+        return $data;
     }
 
-    // ------------------ Page Selection Methods ------------------
-
+    // ------------------- Page Handling -------------------
     function setWhichPage() {
-        if (isset($_GET['whichpage']) && !empty($_GET['whichpage'])) {
+        if (isset($_GET['whichpage']) && $_GET['whichpage'] != "") {
             $this->whichpage = $_GET['whichpage'];
         } else {
             $this->whichpage = "Home";
@@ -84,35 +105,37 @@ class Child250 extends Company789 {
     }
 
     function getMain755() {
-        $html  = "<h1 style='text-align:center'>The " . $this->whichpage . " Page</h1>";
+        $headline = "<h1 style='text-align:center'>The " . $this->whichpage . " Page</h1>";
+
+        $content = "";
         if ($this->whichpage == "Home") {
-            $html .= $this->displaySpecials997();
+            $content .= $this->displaySpecials997();  // show table on Home page
         }
-        return $html;
+
+        return $headline . $content;
     }
 
-    // ------------------ Display Specials Method ------------------
-
+    // ------------------- Display Weekly Specials -------------------
     function displaySpecials997() {
-        $filename = "car.txt"; 
+        $filename = "car.txt";   // change this if using vacation.txt or realestate.txt
         if (!file_exists($filename)) {
-            return "<p>File not found: $filename</p>";
+            return "<p>File $filename not found</p>";
         }
 
         $html  = "<h3 style='text-align:center'>Weekly Specials</h3>";
-        $html .= "<table border='1' style='width:80%; margin:auto; text-align:center'>";
-        $html .= "<tr><th>ID</th><th>Product</th><th>Price</th><th>Description</th></tr>";
+        $html .= "<table border='1' style='width:100%; text-align:left'><tr><th>ID</th><th>Name</th><th>Price</th><th>Description</th></tr>";
 
         $file = fopen($filename, "r");
-        while (($line = fgets($file)) !== false) {
-            $line = trim($line);
-            if (empty($line)) continue;
-            $parts = explode(",", $line);
-            $html .= "<tr>";
-            foreach ($parts as $part) {
-                $html .= "<td>" . htmlspecialchars(trim($part)) . "</td>";
+        while (!feof($file)) {
+            $line = trim(fgets($file));
+            if ($line != "") {
+                $parts = explode(",", $line);
+                $html .= "<tr>";
+                foreach ($parts as $part) {
+                    $html .= "<td>" . htmlspecialchars(trim($part)) . "</td>";
+                }
+                $html .= "</tr>";
             }
-            $html .= "</tr>";
         }
         fclose($file);
 
@@ -121,17 +144,26 @@ class Child250 extends Company789 {
     }
 }  // end class Child250 [Child]
 
-// ---------------------------------- Build the Web Page ---------------------------
+// ----------------------------------   Build the Web Page ---------------------------
 
 $object380 = new Child250();
 
-print $object380->getHeader935();       // header
-$object380->create_navbar_array();      // build nav array
-print $object380->getNavBar759();       // display nav bar
-$object380->setWhichPage();             // determine which page
-print $object380->getMain755();         // main content, includes product table for Home
-print $object380->main_info380();       // email and link to page 1
-print $object380->getFooter732();       // footer
+// 1. Connect to database (Lab 11)
+$object380->getDatabase734();  // prints connection status
+
+// 2. Navigation
+$object380->create_navbar_array();
+$object380->setWhichPage();
+
+// 3. Header, NavBar, Main, Footer
+print $object380->getHeader935();
+print $object380->getNavBar759();
+print $object380->getMain755();
+print $object380->main_info380();
+print $object380->getFooter732();
+
+// 4. Close database
+$object380->closeDatabase634();
 
 ?>
 </body>

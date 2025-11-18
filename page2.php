@@ -57,7 +57,7 @@ class Company789 {
             print "<b>Database closed</b><br>";
         }
     }
-}  // end class Company789 [Parent]
+}  
 
 // ----------------------------------   Child Class   ---------------------------
 
@@ -119,7 +119,7 @@ class Child250 extends Company789 {
 
     // Lab 10 - Display weekly specials from file
     function displaySpecials997() {
-        $filename = "car.txt"; // Change this file if your business is different
+        $filename = "car.txt";
         $html = "<h3 style='text-align:center'>Weekly Specials</h3>";
         $html .= "<table border='1' style='width:80%; margin:auto'>";
         if (file_exists($filename)) {

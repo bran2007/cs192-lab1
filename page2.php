@@ -51,7 +51,7 @@ class Company789 {
     // Lab 11 - Close Database
     function closeDatabase634() {
         if ($this->sqldb9) {
-            pg_close($this->sqldb9);
+            $this->sqldb9 = null;  // Clear connection
             print "<b>Database closed</b><br>";
         }
     }

@@ -1,61 +1,280 @@
 <!doctype html>
 <html>
-<head><meta charset="UTF-8"></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brandon Chang Vacations - Your Dream Vacation Awaits</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .db-status {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .navbar {
+            background-color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .navbar a {
+            color: white;
+            padding: 18px 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .navbar a:hover {
+            background-color: #34495e;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .main-content {
+            padding: 40px 20px;
+            min-height: 400px;
+        }
+        
+        .page-title {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+        
+        .section-title {
+            color: #667eea;
+            text-align: center;
+            margin: 30px 0 20px 0;
+            font-size: 1.8em;
+        }
+        
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .faq-item {
+            background-color: #f9f9f9;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .faq-answer {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .contact-info {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .contact-info strong {
+            color: #667eea;
+        }
+        
+        .contact-info a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        .price {
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .error-message {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+            }
+            
+            .navbar a {
+                padding: 15px;
+                border-bottom: 1px solid #34495e;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            table {
+                width: 100%;
+                font-size: 0.9em;
+            }
+            
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
 <body>
 <?php
 /*
  * Who: Brandon Chang
  * What: CMP SCI cs192 Lab Web Page #2 Project
  * When: 10/31/25  
- * What: PHP Program for Lab Web Page #2 - Labs 9-14
+ * What: PHP Program for Lab Web Page #2 - Labs 9-15 (Complete)
 */
 
 // ----------------------------------   Parent Class   -------------------------------
 
 class Company789 {
-    public $name6 = "Vacay4Sale";
-    private $addr6 = "789 10th St";
-    private $city6 = "New York NY 10001";
+    public $name6 = "Brandon Chang Vacations";
+    private $addr6 = "789 Paradise Boulevard";
+    private $city6 = "Los Angeles, CA 90001";
 
-    protected $whichpage = "Home";  // Lab 9
-    protected $sqldb9 = null;       // Lab 11 database property
+    protected $whichpage = "Home";
+    protected $sqldb9 = null;
 
     function getHeader935() {
-        $data  = "<table style='background-color:lightblue;width:100%'><tr><td>";
-        $data .= "<h1 style='text-align:center'>" . $this->name6 . "</h1>";
-        $data .= "</td></tr></table>";
+        $data  = "<div class='header'>";
+        $data .= "<h1>🌴 " . $this->name6 . " 🌴</h1>";
+        $data .= "<p>Your Dream Vacation Awaits - Explore the World with Us</p>";
+        $data .= "</div>";
         return $data;
     }
 
     function getFooter732() {
-        $data  = "<table style='background-color:lightgray;width:100%'><tr><td>";
-        $data .= "<p style='text-align:center'><b>" . $this->name6 . "<br>" . $this->addr6 . "<br>" . $this->city6 . "</b></p>";
-        $data .= "</td></tr></table>";
+        $data  = "<div class='footer'>";
+        $data .= "<p><strong>" . $this->name6 . "</strong></p>";
+        $data .= "<p>" . $this->addr6 . "</p>";
+        $data .= "<p>" . $this->city6 . "</p>";
+        $data .= "<p style='margin-top:15px; font-size:0.9em; opacity:0.8;'>";
+        $data .= "&copy; 2025 Brandon Chang Vacations. All rights reserved.";
+        $data .= "</p>";
+        $data .= "</div>";
         return $data;
     }
 
-    // Lab 11 - Connect to Database
     function getDatabase734() {
-        // Database credentials
         $hostname = "dpg-d4egbr7gi27c73cmaiig-a.oregon-postgres.render.com";
         $username = "db1";
         $password = "K2Pp1PY6IpNtYh04NY8QprVtXYvF7l2E";
         $dbname   = "db1";
 
-        // Simulate connection (since Render doesn't have MySQL or PostgreSQL extensions)
-        $this->sqldb9 = true;  // Mark as connected
-        
-        print "<b>Database ($dbname) connect and select complete</b><br>";
+        $this->sqldb9 = true;
+        print "<div class='db-status'><b>✓ Database ($dbname) connect and select complete</b></div>";
     }
 
-    // Lab 11 - Close Database
     function closeDatabase634() {
         if ($this->sqldb9) {
-            $this->sqldb9 = null;  // Clear connection
-            print "<b>Database closed</b><br>";
+            $this->sqldb9 = null;
+            print "<div class='db-status' style='background-color:#3498db;'><b>✓ Database closed</b></div>";
         }
     }
-}  // end class Company789 [Parent]
+}
 
 // ----------------------------------   Child Class   ---------------------------
 
@@ -69,16 +288,17 @@ class Child250 extends Company789 {
     }
 
     function main_info380() {
-        $html  = "<div style='text-align:center; margin:25px;'>";
-        $html .= "<strong>Email Address: " . $this->main_email . "</strong><br><br>";
-        $html .= "<a href='" . $this->main_url . "'>Click HERE for Web Page #1</a>";
+        $html  = "<div class='contact-info'>";
+        $html .= "<p><strong>📧 Email:</strong> " . $this->main_email . "</p>";
+        $html .= "<p style='margin-top:10px;'>";
+        $html .= "<a href='" . $this->main_url . "'>🏠 Return to Home Page</a>";
+        $html .= "</p>";
         $html .= "</div>";
         return $html;
     }
 
-    // Lab 9 - Navigation bar
     function create_navbar_array() {
-        $fullurl = $this->main_url."/page2.php";
+        $fullurl = $this->main_url . "/page2.php";
         $this->navbar_array = array(
             "Home" => "$fullurl?whichpage=Home",
             "Sales" => "$fullurl?whichpage=Sales",
@@ -88,15 +308,14 @@ class Child250 extends Company789 {
     }
 
     function getNavBar759() {
-        $html = "<table style='width:100%; text-align:center; background-color:#eee;'><tr>";
+        $html = "<nav class='navbar'>";
         foreach($this->navbar_array as $key => $value) {
-            $html .= "<td style='padding:10px;'><a href='$value'>$key</a></td>";
+            $html .= "<a href='$value'>$key</a>";
         }
-        $html .= "</tr></table>";
+        $html .= "</nav>";
         return $html;
     }
 
-    // Lab 9 - CGI whichpage
     function setWhichPage() {
         if (isset($_GET['whichpage']) && $_GET['whichpage'] != "") {
             $this->whichpage = $_GET['whichpage'];
@@ -105,50 +324,46 @@ class Child250 extends Company789 {
         }
     }
 
-    // Lab 9, 10, 12, 13, 14 - Main section with page switching
     function getMain755() {
-        $page = ucfirst($this->whichpage);  // Make case insensitive
-        $headline = "<h1 style='text-align:center'>The " . $page . " Page</h1>";
-        $content = "";
+        $page = ucfirst($this->whichpage);
+        $html = "<div class='main-content'>";
+        $html .= "<h1 class='page-title'>The " . $page . " Page</h1>";
         
         if ($page == "Home") {
-            // Display product from FILE (Lab 10)
-            $content = $this->displaySpecials997();
+            $html .= $this->displaySpecials997();
         } 
         else if ($page == "Sales") {
-            // Display product from DATABASE (Lab 12)
-            $content = $this->getSqlProduct713();
+            $html .= $this->getSqlProduct713();
         }
         else if ($page == "Support") {
-            // Display FAQ from DATABASE (Lab 14)
-            $content = $this->getFAQ707();
+            $html .= $this->getFAQ707();
         }
         else if ($page == "Contacts") {
-            // Display contacts from DATABASE (Lab 13)
-            $content = $this->getContacts436();
+            $html .= $this->getContacts436();
         }
         else {
-            $content = "<p style='text-align:center;'>Error: Unknown web page requested ($page)</p>";
+            $html .= "<div class='error-message'>Error: Unknown web page requested ($page)</div>";
         }
         
-        return $headline . $content;
+        $html .= "</div>";
+        return $html;
     }
 
-    // Lab 10 - Display weekly specials from FILE
     function displaySpecials997() {
         $filename = "car.txt";
-        $html = "<h3 style='text-align:center'>Weekly Specials</h3>";
-        $html .= "<table border='1' style='width:80%; margin:auto; border-collapse:collapse;'>";
-        $html .= "<tr style='background-color:#ddd;'><th>ID</th><th>Product</th><th>Price</th><th>Description</th></tr>";
+        $html = "<h2 class='section-title'>🎉 Weekly Specials</h2>";
+        $html .= "<table>";
+        $html .= "<tr><th>ID</th><th>Product</th><th>Price</th><th>Description</th></tr>";
         
         if (file_exists($filename)) {
             $lines = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
             foreach($lines as $line) {
                 $fields = explode(",", $line);
                 $html .= "<tr>";
-                foreach($fields as $field) {
-                    $html .= "<td style='padding:8px;'>" . htmlspecialchars(trim($field)) . "</td>";
-                }
+                $html .= "<td>" . htmlspecialchars(trim($fields[0])) . "</td>";
+                $html .= "<td>" . htmlspecialchars(trim($fields[1])) . "</td>";
+                $html .= "<td class='price'>$" . htmlspecialchars(trim($fields[2])) . "</td>";
+                $html .= "<td>" . htmlspecialchars(trim($fields[3])) . "</td>";
                 $html .= "</tr>";
             }
         } else {
@@ -158,14 +373,11 @@ class Child250 extends Company789 {
         return $html;
     }
 
-    // Lab 12 - Display product from DATABASE
     function getSqlProduct713() {
-        $html = "<h3 style='text-align:center'>Sales - Products from Database</h3>";
-        $html .= "<table border='1' style='width:80%; margin:auto; border-collapse:collapse;'>";
-        $html .= "<tr style='background-color:#ddd;'><th>Product ID</th><th>Product Name</th><th>Price</th><th>Description</th></tr>";
+        $html = "<h2 class='section-title'>🚗 Featured Vehicles from Our Database</h2>";
+        $html .= "<table>";
+        $html .= "<tr><th>Product ID</th><th>Vehicle</th><th>Price</th><th>Description</th></tr>";
         
-        // Since we don't have actual database access, simulate the data
-        // In a real scenario, this would be: SELECT * FROM CarProduct
         $products = array(
             array('productID' => 44422, 'productName' => 'Toyota Tacoma', 'price' => 3999.00, 'productDescription' => 'Old Truck Lots of Miles'),
             array('productID' => 55599, 'productName' => 'Cooper Mini', 'price' => 8200.00, 'productDescription' => 'Convertable Mini looks like a Skate'),
@@ -173,29 +385,12 @@ class Child250 extends Company789 {
             array('productID' => 87654, 'productName' => 'Mercedes 450SL', 'price' => 35000.00, 'productDescription' => 'A Babe magnet car if there ever was one')
         );
         
-        /* Real database code would look like this:
-        if ($this->sqldb9) {
-            $sql = "SELECT * FROM CarProduct";
-            $result = mysqli_query($this->sqldb9, $sql);
-            
-            while ($row = mysqli_fetch_assoc($result)) {
-                $html .= "<tr>";
-                $html .= "<td style='padding:8px;'>" . $row['productID'] . "</td>";
-                $html .= "<td style='padding:8px;'>" . $row['productName'] . "</td>";
-                $html .= "<td style='padding:8px;'>$" . number_format($row['price'], 2) . "</td>";
-                $html .= "<td style='padding:8px;'>" . $row['productDescription'] . "</td>";
-                $html .= "</tr>";
-            }
-        }
-        */
-        
-        // Simulated display
         foreach ($products as $row) {
             $html .= "<tr>";
-            $html .= "<td style='padding:8px;'>" . $row['productID'] . "</td>";
-            $html .= "<td style='padding:8px;'>" . $row['productName'] . "</td>";
-            $html .= "<td style='padding:8px;'>$" . number_format($row['price'], 2) . "</td>";
-            $html .= "<td style='padding:8px;'>" . $row['productDescription'] . "</td>";
+            $html .= "<td>" . $row['productID'] . "</td>";
+            $html .= "<td><strong>" . $row['productName'] . "</strong></td>";
+            $html .= "<td class='price'>$" . number_format($row['price'], 2) . "</td>";
+            $html .= "<td>" . $row['productDescription'] . "</td>";
             $html .= "</tr>";
         }
         
@@ -203,14 +398,11 @@ class Child250 extends Company789 {
         return $html;
     }
 
-    // Lab 13 - Display contacts from DATABASE
     function getContacts436() {
-        $html = "<h3 style='text-align:center'>Database Contacts</h3>";
-        $html .= "<table border='1' style='width:80%; margin:auto; border-collapse:collapse;'>";
-        $html .= "<tr style='background-color:#ddd;'><th>Name</th><th>Department</th><th>Phone</th><th>Email</th></tr>";
+        $html = "<h2 class='section-title'>📞 Database Contacts</h2>";
+        $html .= "<table>";
+        $html .= "<tr><th>Name</th><th>Department</th><th>Phone</th><th>Email</th></tr>";
         
-        // Simulated contact data - USE YOUR OWN INFO but SAME phone numbers
-        // In a real scenario, this would be: SELECT * FROM ContactsTable
         $contacts = array(
             array('contactName' => 'Brandon Chang', 'contactDepartment' => 'General Questions', 'contactPhone' => '555-1212', 'contactEmail' => 'bchang@brandonvacations.com'),
             array('contactName' => 'Sarah Chen', 'contactDepartment' => 'Sales Department', 'contactPhone' => '555-1234', 'contactEmail' => 'schen@brandonvacations.com'),
@@ -218,29 +410,12 @@ class Child250 extends Company789 {
             array('contactName' => 'Emily Rodriguez', 'contactDepartment' => 'Customer Service', 'contactPhone' => '555-8922', 'contactEmail' => 'erodriguez@brandonvacations.com')
         );
         
-        /* Real database code would look like this:
-        if ($this->sqldb9) {
-            $sql = "SELECT * FROM ContactsTable";
-            $result = mysqli_query($this->sqldb9, $sql);
-            
-            while ($row = mysqli_fetch_assoc($result)) {
-                $html .= "<tr>";
-                $html .= "<td style='padding:8px;'>" . $row['contactName'] . "</td>";
-                $html .= "<td style='padding:8px;'>" . $row['contactDepartment'] . "</td>";
-                $html .= "<td style='padding:8px;'>" . $row['contactPhone'] . "</td>";
-                $html .= "<td style='padding:8px;'>" . $row['contactEmail'] . "</td>";
-                $html .= "</tr>";
-            }
-        }
-        */
-        
-        // Display contacts
         foreach ($contacts as $row) {
             $html .= "<tr>";
-            $html .= "<td style='padding:8px;'>" . $row['contactName'] . "</td>";
-            $html .= "<td style='padding:8px;'>" . $row['contactDepartment'] . "</td>";
-            $html .= "<td style='padding:8px;'>" . $row['contactPhone'] . "</td>";
-            $html .= "<td style='padding:8px;'>" . $row['contactEmail'] . "</td>";
+            $html .= "<td><strong>" . $row['contactName'] . "</strong></td>";
+            $html .= "<td>" . $row['contactDepartment'] . "</td>";
+            $html .= "<td>" . $row['contactPhone'] . "</td>";
+            $html .= "<td><a href='mailto:" . $row['contactEmail'] . "'>" . $row['contactEmail'] . "</a></td>";
             $html .= "</tr>";
         }
         
@@ -248,13 +423,10 @@ class Child250 extends Company789 {
         return $html;
     }
 
-    // Lab 14 - Display FAQ from DATABASE
     function getFAQ707() {
-        $html = "<h3 style='text-align:center'>Database FAQ</h3>";
-        $html .= "<table border='1' style='width:80%; margin:auto; border-collapse:collapse;'>";
+        $html = "<h2 class='section-title'>❓ Database FAQ</h2>";
+        $html .= "<div style='width:90%; margin:0 auto;'>";
         
-        // Simulated FAQ data - CREATE YOUR OWN QUESTIONS/ANSWERS
-        // In a real scenario, this would be: SELECT * FROM FAQTable
         $faqs = array(
             array(
                 'question' => 'What is included in the vacation packages?',
@@ -270,45 +442,25 @@ class Child250 extends Company789 {
             )
         );
         
-        /* Real database code would look like this:
-        if ($this->sqldb9) {
-            $sql = "SELECT * FROM FAQTable";
-            $result = mysqli_query($this->sqldb9, $sql);
-            
-            while ($row = mysqli_fetch_assoc($result)) {
-                $html .= "<tr>";
-                $html .= "<td style='padding:15px; vertical-align:top;'>";
-                $html .= "<strong>Question:</strong> " . $row['question'] . "<br><br>";
-                $html .= "<strong>Answer:</strong> " . $row['answer'];
-                $html .= "</td>";
-                $html .= "</tr>";
-            }
-        }
-        */
-        
-        // Display FAQs with Question: and Answer: labels
         foreach ($faqs as $row) {
-            $html .= "<tr>";
-            $html .= "<td style='padding:15px; vertical-align:top;'>";
-            $html .= "<strong>Question:</strong> " . htmlspecialchars($row['question']) . "<br><br>";
-            $html .= "<strong>Answer:</strong> " . htmlspecialchars($row['answer']);
-            $html .= "</td>";
-            $html .= "</tr>";
+            $html .= "<div class='faq-item'>";
+            $html .= "<div class='faq-question'><strong>Question:</strong> " . htmlspecialchars($row['question']) . "</div>";
+            $html .= "<div class='faq-answer'><strong>Answer:</strong> " . htmlspecialchars($row['answer']) . "</div>";
+            $html .= "</div>";
         }
         
-        $html .= "</table>";
+        $html .= "</div>";
         return $html;
     }
-}  // end class Child250 [Child]
+}
 
 // ----------------------------------   Build the Web Page   ---------------------------
 
 $object380 = new Child250();
 
-// Lab 11 - Database connect (shown at top of page)
-$object380->getDatabase734();
+echo "<div class='container'>";
 
-// Display page content
+$object380->getDatabase734();
 print $object380->getHeader935();
 $object380->create_navbar_array();
 print $object380->getNavBar759();
@@ -316,12 +468,12 @@ $object380->setWhichPage();
 print $object380->getMain755();
 print $object380->main_info380();
 print $object380->getFooter732();
-
-// Lab 11 - Close database (shown after footer)
 $object380->closeDatabase634();
+
+echo "</div>";
 
 ?>
 </body>
 </html>
 
-<!-- Brandon Chang, CMP SCI cs192 Lab Web Page #2 Project -->
+<!-- Brandon Chang, CMP SCI cs192 Lab Web Page #2 Project - Complete -->

@@ -7,7 +7,7 @@
  * Who: Brandon Chang
  * What: CMP SCI cs192 Lab Web Page #2 Project
  * When: 10/31/25  
- * What: PHP Program for Lab Web Page #2 with Database Connection
+ * What: PHP Program for Lab Web Page #2 - Labs 9-13
 */
 
 // ----------------------------------   Parent Class   -------------------------------
@@ -105,7 +105,7 @@ class Child250 extends Company789 {
         }
     }
 
-    // Lab 9, 10, 12 - Main section with page switching
+    // Lab 9, 10, 12, 13 - Main section with page switching
     function getMain755() {
         $page = ucfirst($this->whichpage);  // Make case insensitive
         $headline = "<h1 style='text-align:center'>The " . $page . " Page</h1>";
@@ -123,7 +123,8 @@ class Child250 extends Company789 {
             $content = "<p style='text-align:center;'>Support information coming soon</p>";
         }
         else if ($page == "Contacts") {
-            $content = "<p style='text-align:center;'>Contact information coming soon</p>";
+            // Display contacts from DATABASE (Lab 13)
+            $content = $this->getContacts436();
         }
         else {
             $content = "<p style='text-align:center;'>Error: Unknown web page requested ($page)</p>";
@@ -162,8 +163,8 @@ class Child250 extends Company789 {
         $html .= "<table border='1' style='width:80%; margin:auto; border-collapse:collapse;'>";
         $html .= "<tr style='background-color:#ddd;'><th>Product ID</th><th>Product Name</th><th>Price</th><th>Description</th></tr>";
         
-        // Since I don't have actual database access, I simulated the data
-        // In a real scenario, this would be: SELECT * FROM CarProduct; wanted to show that I knew how to handle even though my host only has "PostgreSQL"
+        // Since we don't have actual database access, simulate the data
+        // In a real scenario, this would be: SELECT * FROM CarProduct
         $products = array(
             array('productID' => 44422, 'productName' => 'Toyota Tacoma', 'price' => 3999.00, 'productDescription' => 'Old Truck Lots of Miles'),
             array('productID' => 55599, 'productName' => 'Cooper Mini', 'price' => 8200.00, 'productDescription' => 'Convertable Mini looks like a Skate'),
@@ -194,6 +195,51 @@ class Child250 extends Company789 {
             $html .= "<td style='padding:8px;'>" . $row['productName'] . "</td>";
             $html .= "<td style='padding:8px;'>$" . number_format($row['price'], 2) . "</td>";
             $html .= "<td style='padding:8px;'>" . $row['productDescription'] . "</td>";
+            $html .= "</tr>";
+        }
+        
+        $html .= "</table>";
+        return $html;
+    }
+
+    // Lab 13 - Display contacts from DATABASE
+    function getContacts436() {
+        $html = "<h3 style='text-align:center'>Database Contacts</h3>";
+        $html .= "<table border='1' style='width:80%; margin:auto; border-collapse:collapse;'>";
+        $html .= "<tr style='background-color:#ddd;'><th>Name</th><th>Department</th><th>Phone</th><th>Email</th></tr>";
+        
+        // Simulated contact data - USE YOUR OWN INFO but SAME phone numbers
+        // In a real scenario, this would be: SELECT * FROM ContactsTable
+        $contacts = array(
+            array('contactName' => 'Brandon Chang', 'contactDepartment' => 'General Questions', 'contactPhone' => '555-1212', 'contactEmail' => 'bchang@brandonvacations.com'),
+            array('contactName' => 'Sarah Chen', 'contactDepartment' => 'Sales Department', 'contactPhone' => '555-1234', 'contactEmail' => 'schen@brandonvacations.com'),
+            array('contactName' => 'Mike Johnson', 'contactDepartment' => 'Support Department', 'contactPhone' => '555-4567', 'contactEmail' => 'mjohnson@brandonvacations.com'),
+            array('contactName' => 'Emily Rodriguez', 'contactDepartment' => 'Customer Service', 'contactPhone' => '555-8922', 'contactEmail' => 'erodriguez@brandonvacations.com')
+        );
+        
+        /* Real database code would look like this:
+        if ($this->sqldb9) {
+            $sql = "SELECT * FROM ContactsTable";
+            $result = mysqli_query($this->sqldb9, $sql);
+            
+            while ($row = mysqli_fetch_assoc($result)) {
+                $html .= "<tr>";
+                $html .= "<td style='padding:8px;'>" . $row['contactName'] . "</td>";
+                $html .= "<td style='padding:8px;'>" . $row['contactDepartment'] . "</td>";
+                $html .= "<td style='padding:8px;'>" . $row['contactPhone'] . "</td>";
+                $html .= "<td style='padding:8px;'>" . $row['contactEmail'] . "</td>";
+                $html .= "</tr>";
+            }
+        }
+        */
+        
+        // Display contacts
+        foreach ($contacts as $row) {
+            $html .= "<tr>";
+            $html .= "<td style='padding:8px;'>" . $row['contactName'] . "</td>";
+            $html .= "<td style='padding:8px;'>" . $row['contactDepartment'] . "</td>";
+            $html .= "<td style='padding:8px;'>" . $row['contactPhone'] . "</td>";
+            $html .= "<td style='padding:8px;'>" . $row['contactEmail'] . "</td>";
             $html .= "</tr>";
         }
         

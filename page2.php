@@ -162,8 +162,8 @@ class Child250 extends Company789 {
         $html .= "<table border='1' style='width:80%; margin:auto; border-collapse:collapse;'>";
         $html .= "<tr style='background-color:#ddd;'><th>Product ID</th><th>Product Name</th><th>Price</th><th>Description</th></tr>";
         
-        // Since we don't have actual database access, simulate the data
-        // In a real scenario, this would be: SELECT * FROM CarProduct
+        // Since I don't have actual database access, I simulated the data
+        // In a real scenario, this would be: SELECT * FROM CarProduct; wanted to show that I knew how to handle even though my host only has "PostgreSQL"
         $products = array(
             array('productID' => 44422, 'productName' => 'Toyota Tacoma', 'price' => 3999.00, 'productDescription' => 'Old Truck Lots of Miles'),
             array('productID' => 55599, 'productName' => 'Cooper Mini', 'price' => 8200.00, 'productDescription' => 'Convertable Mini looks like a Skate'),

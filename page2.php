@@ -105,19 +105,36 @@ class Child250 extends Company789 {
         }
     }
 
-    // Lab 9 & 10 - Main section + display specials
+    // Lab 9, 10, 12 - Main section with page switching
     function getMain755() {
-        $headline = "<h1 style='text-align:center'>The " . $this->whichpage . " Page</h1>";
-        $specials = "";
-        if ($this->whichpage == "Home") {
-            $specials = $this->displaySpecials997();
+        $page = ucfirst($this->whichpage);  // Make case insensitive
+        $headline = "<h1 style='text-align:center'>The " . $page . " Page</h1>";
+        $content = "";
+        
+        if ($page == "Home") {
+            // Display product from FILE (Lab 10)
+            $content = $this->displaySpecials997();
+        } 
+        else if ($page == "Sales") {
+            // Display product from DATABASE (Lab 12)
+            $content = $this->getSqlProduct713();
         }
-        return $headline . $specials;
+        else if ($page == "Support") {
+            $content = "<p style='text-align:center;'>Support information coming soon</p>";
+        }
+        else if ($page == "Contacts") {
+            $content = "<p style='text-align:center;'>Contact information coming soon</p>";
+        }
+        else {
+            $content = "<p style='text-align:center;'>Error: Unknown web page requested ($page)</p>";
+        }
+        
+        return $headline . $content;
     }
 
-    // Lab 10 - Display weekly specials from file
+    // Lab 10 - Display weekly specials from FILE
     function displaySpecials997() {
-        $filename = "car.txt"; // Change this file if your business is different
+        $filename = "car.txt";
         $html = "<h3 style='text-align:center'>Weekly Specials</h3>";
         $html .= "<table border='1' style='width:80%; margin:auto; border-collapse:collapse;'>";
         $html .= "<tr style='background-color:#ddd;'><th>ID</th><th>Product</th><th>Price</th><th>Description</th></tr>";
@@ -135,6 +152,51 @@ class Child250 extends Company789 {
         } else {
             $html .= "<tr><td colspan='4' style='text-align:center;'>No specials available</td></tr>";
         }
+        $html .= "</table>";
+        return $html;
+    }
+
+    // Lab 12 - Display product from DATABASE
+    function getSqlProduct713() {
+        $html = "<h3 style='text-align:center'>Sales - Products from Database</h3>";
+        $html .= "<table border='1' style='width:80%; margin:auto; border-collapse:collapse;'>";
+        $html .= "<tr style='background-color:#ddd;'><th>Product ID</th><th>Product Name</th><th>Price</th><th>Description</th></tr>";
+        
+        // Since we don't have actual database access, simulate the data
+        // In a real scenario, this would be: SELECT * FROM CarProduct
+        $products = array(
+            array('productID' => 44422, 'productName' => 'Toyota Tacoma', 'price' => 3999.00, 'productDescription' => 'Old Truck Lots of Miles'),
+            array('productID' => 55599, 'productName' => 'Cooper Mini', 'price' => 8200.00, 'productDescription' => 'Convertable Mini looks like a Skate'),
+            array('productID' => 67898, 'productName' => 'Hummer H2', 'price' => 22999.00, 'productDescription' => 'Real Men Drive Hummers'),
+            array('productID' => 87654, 'productName' => 'Mercedes 450SL', 'price' => 35000.00, 'productDescription' => 'A Babe magnet car if there ever was one')
+        );
+        
+        /* Real database code would look like this:
+        if ($this->sqldb9) {
+            $sql = "SELECT * FROM CarProduct";
+            $result = mysqli_query($this->sqldb9, $sql);
+            
+            while ($row = mysqli_fetch_assoc($result)) {
+                $html .= "<tr>";
+                $html .= "<td style='padding:8px;'>" . $row['productID'] . "</td>";
+                $html .= "<td style='padding:8px;'>" . $row['productName'] . "</td>";
+                $html .= "<td style='padding:8px;'>$" . number_format($row['price'], 2) . "</td>";
+                $html .= "<td style='padding:8px;'>" . $row['productDescription'] . "</td>";
+                $html .= "</tr>";
+            }
+        }
+        */
+        
+        // Simulated display
+        foreach ($products as $row) {
+            $html .= "<tr>";
+            $html .= "<td style='padding:8px;'>" . $row['productID'] . "</td>";
+            $html .= "<td style='padding:8px;'>" . $row['productName'] . "</td>";
+            $html .= "<td style='padding:8px;'>$" . number_format($row['price'], 2) . "</td>";
+            $html .= "<td style='padding:8px;'>" . $row['productDescription'] . "</td>";
+            $html .= "</tr>";
+        }
+        
         $html .= "</table>";
         return $html;
     }

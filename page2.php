@@ -7,7 +7,7 @@
  * Who: Brandon Chang
  * What: CMP SCI cs192 Lab Web Page #2 Project
  * When: 10/31/25  
- * What: PHP Program for Lab Web Page #2 - Labs 9-13
+ * What: PHP Program for Lab Web Page #2 - Labs 9-14
 */
 
 // ----------------------------------   Parent Class   -------------------------------
@@ -105,7 +105,7 @@ class Child250 extends Company789 {
         }
     }
 
-    // Lab 9, 10, 12, 13 - Main section with page switching
+    // Lab 9, 10, 12, 13, 14 - Main section with page switching
     function getMain755() {
         $page = ucfirst($this->whichpage);  // Make case insensitive
         $headline = "<h1 style='text-align:center'>The " . $page . " Page</h1>";
@@ -120,7 +120,8 @@ class Child250 extends Company789 {
             $content = $this->getSqlProduct713();
         }
         else if ($page == "Support") {
-            $content = "<p style='text-align:center;'>Support information coming soon</p>";
+            // Display FAQ from DATABASE (Lab 14)
+            $content = $this->getFAQ707();
         }
         else if ($page == "Contacts") {
             // Display contacts from DATABASE (Lab 13)
@@ -240,6 +241,58 @@ class Child250 extends Company789 {
             $html .= "<td style='padding:8px;'>" . $row['contactDepartment'] . "</td>";
             $html .= "<td style='padding:8px;'>" . $row['contactPhone'] . "</td>";
             $html .= "<td style='padding:8px;'>" . $row['contactEmail'] . "</td>";
+            $html .= "</tr>";
+        }
+        
+        $html .= "</table>";
+        return $html;
+    }
+
+    // Lab 14 - Display FAQ from DATABASE
+    function getFAQ707() {
+        $html = "<h3 style='text-align:center'>Database FAQ</h3>";
+        $html .= "<table border='1' style='width:80%; margin:auto; border-collapse:collapse;'>";
+        
+        // Simulated FAQ data - CREATE YOUR OWN QUESTIONS/ANSWERS
+        // In a real scenario, this would be: SELECT * FROM FAQTable
+        $faqs = array(
+            array(
+                'question' => 'What is included in the vacation packages?',
+                'answer' => 'All packages include hotel accommodations, airport transfers, and daily breakfast. Optional excursions are available for an additional fee.'
+            ),
+            array(
+                'question' => 'What is your cancellation policy?',
+                'answer' => 'Free cancellation up to 30 days before departure. 50% refund for cancellations 15-30 days before, no refund within 15 days of departure.'
+            ),
+            array(
+                'question' => 'Do you offer travel insurance?',
+                'answer' => 'Yes, we partner with leading insurance providers. Travel insurance is highly recommended for all international bookings to protect your investment.'
+            )
+        );
+        
+        /* Real database code would look like this:
+        if ($this->sqldb9) {
+            $sql = "SELECT * FROM FAQTable";
+            $result = mysqli_query($this->sqldb9, $sql);
+            
+            while ($row = mysqli_fetch_assoc($result)) {
+                $html .= "<tr>";
+                $html .= "<td style='padding:15px; vertical-align:top;'>";
+                $html .= "<strong>Question:</strong> " . $row['question'] . "<br><br>";
+                $html .= "<strong>Answer:</strong> " . $row['answer'];
+                $html .= "</td>";
+                $html .= "</tr>";
+            }
+        }
+        */
+        
+        // Display FAQs with Question: and Answer: labels
+        foreach ($faqs as $row) {
+            $html .= "<tr>";
+            $html .= "<td style='padding:15px; vertical-align:top;'>";
+            $html .= "<strong>Question:</strong> " . htmlspecialchars($row['question']) . "<br><br>";
+            $html .= "<strong>Answer:</strong> " . htmlspecialchars($row['answer']);
+            $html .= "</td>";
             $html .= "</tr>";
         }
         
